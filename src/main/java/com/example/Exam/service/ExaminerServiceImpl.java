@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
@@ -28,17 +25,17 @@ public class ExaminerServiceImpl implements ExaminerService {
         if (amount > questionService.getAll().size() + questionService1.getAll().size()) {
             throw new ExaminerQuestionsException("Значение больше допустимого");
         }
-        List<Question> questionList = new ArrayList<>();
+        Set<Question> questionSet = new HashSet<>();
         for (int i = 0; i <= amount; i++) {
             if ((int) (Math.random() * 2) == 0) {
-                questionList.add(questionService.getRandomQuestion());
+                questionSet.add(questionService.getRandomQuestion());
                 break;
             } else {
-                questionList.add(questionService1.getRandomQuestion());
+                questionSet.add(questionService1.getRandomQuestion());
                 break;
             }
 
         }
-        return questionList;
+        return questionSet;
     }
 }
